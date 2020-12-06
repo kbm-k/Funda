@@ -9,6 +9,7 @@ namespace Funda
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
+            builder.Services.AddTransient<IEstateAgentsService, EstateAgentsService>();
             builder.Services.AddTransient<IApiService, ApiService>();
             builder.Services.AddHttpClient<ApiService>();
         }

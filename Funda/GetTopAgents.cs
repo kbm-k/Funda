@@ -12,9 +12,9 @@ namespace Funda
 {
     public class GetTopAgents
     {
-        private readonly IApiService _apiService;
+        private readonly IEstateAgentsService _estateAgentsService;
 
-        public GetTopAgents(IApiService apiService) => _apiService = apiService;
+        public GetTopAgents(IEstateAgentsService estateAgentsService) => _estateAgentsService = estateAgentsService;
 
         [FunctionName("GetTopAgents")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest request)
@@ -23,8 +23,8 @@ namespace Funda
             {
                 var topAgents = new
                 {
-                    EstateAgents = await _apiService.GetEstateAgents(10, true),
-                    EstateAgentsOfObjectsWithTuins = await _apiService.GetEstateAgentsOfObjectsWithTuins(10, true),
+                    EstateAgents = await _estateAgentsService.GetEstateAgents(10, true),
+                    EstateAgentsOfObjectsWithTuins = await _estateAgentsService.GetEstateAgentsOfObjectsWithTuins(10, true),
                 };
 
                 return new OkObjectResult(JsonConvert.SerializeObject(topAgents));

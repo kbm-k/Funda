@@ -12,11 +12,11 @@ using Xunit;
 
 namespace Funda.Tests
 {
-    public class ApiServiceTests
+    public class EstateAgentsTests
     {
         private readonly List<FeedResponse> _responses;
 
-        public ApiServiceTests()
+        public EstateAgentsTests()
         {
             var serializedResponses = File.ReadAllText("TestData.json");
             _responses = JsonConvert.DeserializeObject<List<FeedResponse>>(serializedResponses);
@@ -25,6 +25,7 @@ namespace Funda.Tests
         [Fact]
         public async Task GetAgentsTest()
         {
+            // Real endpoint is not used during the testing. Url endpoints are needed to mock HttpMessageHandler.
             const string firstPage = "http://partnerapi.funda.nl/feeds/Aanbod.svc/json/ac1b0b1572524640a0ecc54de453ea9f/?type=koop&zo=/amsterdam/&page=1&pagesize=25";
             const string secondPage = "http://partnerapi.funda.nl/feeds/Aanbod.svc/json/ac1b0b1572524640a0ecc54de453ea9f/?type=koop&zo=/amsterdam/&page=2&pagesize=25";
 
@@ -35,8 +36,9 @@ namespace Funda.Tests
 
             var client = messageHandler.CreateClient();
             var apiService = new ApiService(client);
+            var estateAgentsService = new EstateAgentsService(apiService);
 
-            var estateAgents = (await apiService.GetEstateAgents(10, true)).ToList();
+            var estateAgents = (await estateAgentsService.GetEstateAgents(10, true)).ToList();
 
             CompareIdsAndCounts(34, 10, estateAgents[0]);
             CompareIdsAndCounts(35, 9, estateAgents[1]);
