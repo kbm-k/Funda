@@ -7,6 +7,7 @@ I decided to not to divide into several physical layers/tiers, I think that woul
 1) Models. Some files contain several classes - just to make it easier to view the code in github.
 2) Services. ApiService.cs and EstateAgentsService.cs contain the main logic of app.
 3) Extensions. Here retry and circuit breaker policies are implemented.
+
 So the logical layers are Azure Function -> EstateAgentsService (as business layer) -> ApiService (as transport layer)
 
 The main logic (requests):
