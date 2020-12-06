@@ -3,7 +3,7 @@
 Application is built using Azure Functions, .NET Core 3.1, C#.
 
 Funda project:
-I decided to not to divide into several physical layers/tiers, that would be overengineering(Clean Arch./CQRS/etc). So Azure Function project contains:
+I decided to not to divide into several physical layers/tiers, I think that would be overengineering in this case (as well as Clean Arch./CQRS/etc). So the main project contains:
 1) Models. Some files contain several classes - just to make it easier to view the code in github.
 2) Services. ApiService.cs and EstateAgentsService.cs contain the main logic of app.
 3) Extensions. Here retry and circuit breaker policies are implemented.
