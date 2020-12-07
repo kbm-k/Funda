@@ -25,7 +25,7 @@ namespace Funda.Services
             if (firstPageResponse.TotaalAantalObjecten == 0) return new List<ObjectForSale>();
 
             var urls = Enumerable.Range(2, firstPageResponse.Paging.AantalPaginas - 1).Select(i => string.Format(url, i)).ToList();
-            var requests = urls.Select(async url => await GetPage(url));
+            var requests = urls.Select(GetPage);
             var responses = (await Task.WhenAll(requests)).ToList();
             responses.Add(firstPageResponse);
 
